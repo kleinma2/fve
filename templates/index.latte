@@ -3,6 +3,7 @@
 <title>FVE čvut</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="http://10.0.0.101/fve/">
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -16,7 +17,9 @@ nav a{
     cursor: pointer;
 }
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js" type="text/javascript" charset="utf-8"></script>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="js/functions.js"></script>
 <body class="w3-light-grey">
 
 <!-- Top container -->
@@ -51,56 +54,16 @@ nav a{
 <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
 
 <!-- !PAGE CONTENT! -->
-<div class="w3-main" style="margin-left:300px;margin-top:43px;">
 
-    {include 'form.latte'}
+<div class="w3-main" style="margin-left:300px;margin-top:43px;">
+    <div id="content">
+        {$content|noescape}
+    </div>
     {include 'footer.latte'}
   <!-- End page content -->
 </div>
-
-<script n:syntax="off">
-// Get the Sidenav
-var mySidenav = document.getElementById("mySidenav");
-
-// Get the DIV with overlay effect
-var overlayBg = document.getElementById("myOverlay");
-
-// Toggle between showing and hiding the sidenav, and add overlay effect
-function w3_open() {
-    if (mySidenav.style.display === 'block') {
-        mySidenav.style.display = 'none';
-        overlayBg.style.display = "none";
-    } else {
-        mySidenav.style.display = 'block';
-        overlayBg.style.display = "block";
-    }
-}
-
-$('.nav').on('click',function(){
-    var id=$(this).attr('data-id');
-    console.log('nacti '+id);
-    //omalovánky
-    $('.nav').removeClass('w3-blue');
-    $(this).addClass('w3-blue');
-    
-    if($('[data-parent='+id+']').is(':visible')){
-        $(this).find($('.fa')).removeClass('fa-folder-open').addClass('fa-folder-o');
-        $('[data-parent='+id+']').hide('fast'); 
-    }else{
-        $(this).find($('.fa')).removeClass('fa-folder-o').addClass('fa-folder-open');
-        $('[data-parent='+id+']').show('fast');  
-    }
-});
-
-$('.structure-add').on('click',function(){
-    var id=$(this).attr('data-addto');
-    console.log('pridej '+id);
-});
-// Close the sidenav with the close button
-function w3_close() {
-    mySidenav.style.display = "none";
-    overlayBg.style.display = "none";
-}
+<script>
+    {$onload|noescape}
 </script>
 
 </body>

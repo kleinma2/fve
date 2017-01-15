@@ -32,9 +32,17 @@ class Render {
                 $html.=$this->iterateStrom($s->_id,$structure);
             }
         }
-        $html.='<a data-addto="'.$id.'" class="w3-padding structure-add"><i class="fa fa-plus fa-fw"></i> přidat</a>';
         $html.='</div>'."\n";
     
+        return $html;
+    }
+    
+    function chmodOptions($chmod,$level){
+        $n=strval($chmod)[$level];
+        $html='<option value="0"'.($n=='0'?' selected="selected"':'').($level==0?' disabled="disabled"':'').'>-</option>
+        <option value="4"'.($n=='4'?' selected="selected"':'').($level==0?' disabled="disabled"':'').'>-r-</option>
+        <option value="6"'.($n=='6'?' selected="selected"':'').($level==0?' disabled="disabled"':'').'>-r-w-</option>
+        <option value="7"'.($n=='7'?' selected="selected"':'').'>-r-w-x-</option>';
         return $html;
     }
 }

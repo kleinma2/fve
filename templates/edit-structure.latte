@@ -1,0 +1,41 @@
+<div class="w3-container w3-section">
+    <h2>{ifset $structure->name}{$structure->name}{else}Nová struktura{/ifset}</h2>
+</div>
+<div class="w3-container w3-section">
+    <form method="POST">
+    <button type="submit"><i class="fa fa-save"></i> Uložit</button>
+    <button type="button" onClick="ajaxGet('structure/'+{(string)$structure->_id}+'/ajax',renderContent)" ><i class="fa fa-times"></i> Zrušit</button><br>
+    <div class="w3-half w3-padding-tiny">
+        <h5>Obecné</h5>
+        <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
+          <tr>
+            <td>Název</td>
+            <td><input name="name" type="text" style="width: 100%;" placeholder="jednoznačný název" value="{$structure->name}"></td>
+          </tr>
+          <tr>
+            <td>Poloha</td>
+            <td><input name="position[lat]" type="number" style="width: 33.3%;" placeholder="zeměpisná šířka" value="{$structure->position->lat}" step="any"><input name="position[lon]" type="number" style="width: 33.3%;" placeholder="zeměpisná délka" value="{$structure->position->lon}" step="any"><input name="position[alt]" type="number" style="width: 33.3%;" placeholder="nadmořská výška" value="{$structure->position->alt}" step="any"></td>
+          </tr>
+        </table><br>
+    </div>
+    <div class="w3-half w3-padding-tiny">
+        <h5>Oprávnění</h5>
+        <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
+          <tr>
+            <td>Vlastník</td>
+            <td><select name="permissions[chmod][0]">{$permissions[0]|noescape}</select></td>
+          </tr>
+          <tr>
+            <td>Organizace</td>
+            <td><select name="permissions[chmod][1]">{$permissions[1]|noescape}</select></td>
+          </tr>
+          <tr>
+            <td>Ostatní</td>
+            <td><select name="permissions[chmod][2]">{$permissions[2]|noescape}</select></td>
+          </tr>
+        </table><br>
+    </div>
+    {ifset $structure->_id}<input type="hidden" value="{$structure->_id}" name="_id">{/ifset}
+    {ifset $structure->parent}<input type="hidden" value="{$structure->parent}" name="parent">{/ifset}
+    </form>
+</div>
