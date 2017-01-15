@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<title>FVE čvut</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style n:syntax="off">
+html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+.hidden{
+    display: none;
+}
+
+nav a{
+    cursor: pointer;
+}
+</style>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<body class="w3-light-grey">
+
+<!-- Top container -->
+<div class="w3-container w3-top w3-black w3-large w3-padding" style="z-index:4">
+  <button class="w3-btn w3-hide-large w3-padding-0 w3-hover-text-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
+  <span class="w3-right">fve.cvut.cz</span>
+</div>
+
+<!-- Sidenav/menu -->
+<nav class="w3-sidenav w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidenav"><br>
+    <div class="w3-container w3-row">
+        <div class="w3-col s4">
+            <i class="fa fa-sun-o w3-xxxlarge" style="color: #FF9800;"></i>
+        </div>
+        <div class="w3-col s8">
+            <span>FEL, <strong>Martin Klein</strong></span><br>
+            <a href="#" class="w3-hover-none w3-hover-text-green w3-show-inline-block"><i class="fa fa-home"></i></a>
+            <a href="#" class="w3-hover-none w3-hover-text-green w3-show-inline-block"><i class="fa fa-th-large"></i></a>
+            <a href="#" class="w3-hover-none w3-hover-text-blue w3-show-inline-block"><i class="fa fa-cog"></i></a>
+            <a href="#" class="w3-hover-none w3-hover-text-blue w3-show-inline-block"><i class="fa fa-sign-out"></i></a>
+        </div>
+    </div>
+  <hr>
+  <div class="w3-container">
+    <h5><i class="fa fa-home"></i> Dashboard</h5>
+  </div>
+    {$tree|noescape}
+</nav>
+
+
+<!-- Overlay effect when opening sidenav on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:300px;margin-top:43px;">
+
+    {include 'form.latte'}
+    {include 'footer.latte'}
+  <!-- End page content -->
+</div>
+
+<script n:syntax="off">
+// Get the Sidenav
+var mySidenav = document.getElementById("mySidenav");
+
+// Get the DIV with overlay effect
+var overlayBg = document.getElementById("myOverlay");
+
+// Toggle between showing and hiding the sidenav, and add overlay effect
+function w3_open() {
+    if (mySidenav.style.display === 'block') {
+        mySidenav.style.display = 'none';
+        overlayBg.style.display = "none";
+    } else {
+        mySidenav.style.display = 'block';
+        overlayBg.style.display = "block";
+    }
+}
+
+$('.nav').on('click',function(){
+    var id=$(this).attr('data-id');
+    console.log('nacti '+id);
+    //omalovánky
+    $('.nav').removeClass('w3-blue');
+    $(this).addClass('w3-blue');
+    
+    if($('[data-parent='+id+']').is(':visible')){
+        $(this).find($('.fa')).removeClass('fa-folder-open').addClass('fa-folder-o');
+        $('[data-parent='+id+']').hide('fast'); 
+    }else{
+        $(this).find($('.fa')).removeClass('fa-folder-o').addClass('fa-folder-open');
+        $('[data-parent='+id+']').show('fast');  
+    }
+});
+
+$('.structure-add').on('click',function(){
+    var id=$(this).attr('data-addto');
+    console.log('pridej '+id);
+});
+// Close the sidenav with the close button
+function w3_close() {
+    mySidenav.style.display = "none";
+    overlayBg.style.display = "none";
+}
+</script>
+
+</body>
+</html>

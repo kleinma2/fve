@@ -1,0 +1,95 @@
+<h2>Přidat/upravit zařízení</h2>
+ <div class="w3-container w3-section">
+    <div class="w3-padding-tiny">
+        <h5>Obecné</h5>
+        <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
+          <tr>
+            <td>Název</td>
+            <td><input type="text" style="width: 100%;"></td>
+            <td>Interval odečtu</td>
+            <td><select><option>1x za minutu</option><option>1x za půl hodiny</option></select></td>
+          </tr>
+        </table><br>
+    </div>
+</div>
+ <div class="w3-container w3-section">
+    <div class="w3-half w3-padding-tiny">
+        <h5>Načítání dat</h5>
+        <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
+          <tr>
+            <td>Řízení načítání dat</td>
+            <td><select><option>server</option><option>senzor</option></select></td>
+          </tr>
+        <tr>
+            <td>Přístup k datům</td>
+            <td><select><option>_GET</option><option>jiný</option></select></td>
+        </tr>
+        
+        <tr>
+            <td colspan="2" style="position: relative; height: 200px;"><div id="curl" style="width: 100%">curl 'https://monitoring.solaredge.com/solaredge-web/p/chartExport'</div></td>
+        </tr>
+        <tr style="display:none;">
+            <td>Zaslání dat</td>
+            <td><select><option>_GET</option><option>_POST</option><option>_PUT</option></select></td>
+          </tr>
+          <tr  style="display:none;">
+            <td>Uri</td>
+            <td>http://fve.cvut.cz/5879ff785fe39569bb28e7b0</td>
+          </tr>
+          <tr  style="display:none;">
+            <td>api_key</td>
+            <td>accc9105df5383111407fd5b41255e23</td>
+          </tr>
+          <tr>
+            <td colspan="2"><button>otestovat načítání dat</button></td>
+          </tr>
+        </table><br>
+    </div>
+    <div class="w3-half w3-padding-tiny">
+        <h5>Transformace dat</h5>
+        <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
+          <tr>
+            <td>Jazyk</td>
+            <td><select><option>php</option><option>javascript</option><option>python</option></select></td>
+          </tr>
+          <tr>
+            <td colspan="2" style="position: relative; height: 200px;"><div id="transformation" style="width: 100%">&lt;?php
+    function transform($data){
+        return $data;
+    }</div></td>
+          </tr>
+          <tr>
+            <td colspan="2"><button>kontrola syntaxe</button></td>
+          </tr>
+        </table><br>
+    </div>
+  </div>
+  <hr>
+<style type="text/css" media="screen" n:syntax="off">
+    #curl { 
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+    #transformation { 
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+</style>
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js" type="text/javascript" charset="utf-8"></script>
+<script n:syntax="off">
+    var curl = ace.edit("curl");
+    curl.setTheme("ace/theme/crimson_editor");
+    curl.getSession().setMode("ace/mode/sh");
+    
+    var transformation = ace.edit("transformation");
+    transformation.setTheme("ace/theme/crimson_editor");
+    transformation.getSession().setMode("ace/mode/php");
+</script>
