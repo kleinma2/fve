@@ -4,7 +4,8 @@
 <div class="w3-container w3-section">
     <form method="POST">
     <button type="submit"><i class="fa fa-save"></i> Uložit</button>
-    <button type="button" onClick="ajaxGet('structure/'+{(string)$structure->_id}+'/ajax',renderContent)" ><i class="fa fa-times"></i> Zrušit</button><br>
+    {ifset $structure->_id}<button type="button" onClick="ajaxGet('structure/'+{(string)$structure->_id}+'/ajax',renderContent)" ><i class="fa fa-trash"></i> Odstranit</button>{/ifset}
+    <button type="button" onClick="ajaxGet('structure/'+{ifset $structure->_id}{(string)$structure->_id}{else}{(string)$structure->parent}{/ifset}+'/ajax',renderContent)" ><i class="fa fa-times"></i> Zrušit</button><br>
     <div class="w3-half w3-padding-tiny">
         <h5>Obecné</h5>
         <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
@@ -35,6 +36,7 @@
           </tr>
         </table><br>
     </div>
+    <input type="hidden" value="edit-structure" name="function">
     {ifset $structure->_id}<input type="hidden" value="{$structure->_id}" name="_id">{/ifset}
     {ifset $structure->parent}<input type="hidden" value="{$structure->parent}" name="parent">{/ifset}
     </form>

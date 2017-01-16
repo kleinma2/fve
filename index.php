@@ -22,16 +22,24 @@ $params=array(
     'action'=>(isset($p[2])?$p[2]:null)
 );
 
+//js onload stránky
+$onload='';
+
 //transformace chmod
 if(isset($_POST['permissions']['chmod'])){
     $_POST['permissions']['chmod']=implode($_POST['permissions']['chmod']);
 }
 
+//dummy uložení
+if($params['operation']=='send'){
+    file_put_contents('test.dump',print_r($_GET,true));
+}
 
+//operace
 switch($params['operation']){
     case 'structure':
         if(sizeof($_POST)>0){
-            print_r($put->structure($_POST));
+            echo '<script>console.log('.json_encode($put->structure($_POST)).');</script>';
         }
     
         //načtení info o struktuře
