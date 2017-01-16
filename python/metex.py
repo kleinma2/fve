@@ -11,6 +11,7 @@ interval=30;
 equipment_id='587a223c5fe39569bb28e7bd';
 ###api key
 api_key='none';
+domain='http://localhost/fve';
 
 ########################################################################
 
@@ -43,7 +44,7 @@ while(True):
     data={'api-key':api_key,'meas':r[0],'value':float(r[1]),'unit':r[2]};
     query=urllib.urlencode(data);
     #odeslani uri
-    r = requests.get("http://localhost/fve/send/"+equipment_id+"/?"+query)
+    r = requests.get(domain+"/send/"+equipment_id+"/?"+query)
     #vypis na obrazovku
     print 'Data: ' + str(data)
     print 'Odeslani dat: ' + str(r.status_code)
